@@ -1,11 +1,12 @@
-@import url("fontawesome.min.css");
+/* Este archivo se carga DESPUÉS de bootstrap.min.css y fontawesome.min.css,
+   así que solo contiene los ajustes propios (colores, tipografías del tema
+   cuántico) que Bootstrap no trae por defecto. */
 
 body {
     font-family: Arial, Helvetica, sans-serif;
     background-color: #eef3f7;
     color: #222;
     line-height: 1.8;
-    margin: 0;
 }
 
 h1 {
@@ -21,86 +22,44 @@ h3 {
     color: #444;
 }
 
-p {
-    margin: 8px 0;
-}
-
 ul {
     text-align: left;
 }
 
-img {
-    max-width: 100%;
-    height: auto;
-}
-
-/* ===== Estructura general (Flexbox) ===== */
-.main-container {
-    display: flex;
-    flex-direction: column;
-}
-
+/* ===== Barra de navegación (Bootstrap navbar + colores propios) ===== */
 .menu-flex {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    gap: 20px;
     background-color: #744389;
-    padding: 15px 30px;
     border-bottom: 5px solid #000000;
 }
 
-.menu-flex a {
-    color: #ffffff;
+.menu-flex .nav-link {
+    color: #ffffff !important;
     font-weight: bold;
-    padding: 8px 16px;
     transition: background-color 0.3s;
 }
 
-.menu-flex a i {
+.menu-flex .nav-link i {
     margin-right: 6px;
 }
 
-.menu-flex a:hover {
+.menu-flex .nav-link:hover {
     background-color: #6b00a8;
-    color: #101728;
+    color: #101728 !important;
 }
 
-.menu-flex a.activo {
+.menu-flex .nav-link.activo {
     background-color: #6b00a8;
 }
 
-.cuerpo-flex {
-    display: flex;
-    justify-content: space-between;
-    align-items: stretch;
-}
-
+/* ===== Barra lateral "Datos Clave" ===== */
 .datos-clave {
-    width: 20%;
     background-color: #510074;
     color: #ffffff;
     padding: 20px 10px;
-    box-sizing: border-box;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: start;
-}
-
-.datos-clave img {
-    width: 150px;
-    height: 150px;
 }
 
 .datos-clave h2 {
     color: #ffffff;
-}
-
-.datos-clave table {
-    width: 100%;
 }
 
 .datos-clave th,
@@ -115,11 +74,10 @@ img {
     color: #101728;
 }
 
+/* ===== Contenido principal ===== */
 .contenido {
-    width: 80%;
     background-color: #FDFBF7;
     padding: 20px 40px;
-    box-sizing: border-box;
 }
 
 .conceptos-clave {
@@ -129,92 +87,47 @@ img {
     margin: 15px 0;
 }
 
-form {
-    background-color: #eef3f7;
-    border: 1px solid #101728;
-    padding: 20px;
-    max-width: 350px;
-}
-
-form button {
-    background-color: #101728;
-    color: #ffffff;
-    border: none;
-    padding: 8px 16px;
-    margin-top: 5px;
-}
-
 .titulo-tabla {
     text-align: center;
 }
 
-table {
+/* Tablas propias del contenido (fuera de la barra lateral) */
+.contenido table {
     width: 100%;
 }
 
-th,
-td {
+.contenido th,
+.contenido td {
     border: 1px solid #101728;
     padding: 8px;
     text-align: left;
 }
 
-th {
+.contenido th {
     background-color: #6c5ce7;
     color: #ffffff;
 }
 
 /* =========================================================
-   RESPONSIVE - @media queries
-   Puntos de quiebre: Escritorio (por defecto) / Tablet / Celular
+   RESPONSIVE - @media queries propias
+   (Bootstrap ya apila el grid col-md-3 / col-md-9 en móviles,
+   pero aquí ajustamos tamaños, tipografía e imágenes que
+   Bootstrap no controla)
    ========================================================= */
 
-/* ---- TABLET: pantallas de hasta 900px ---- */
+/* ---- TABLET: hasta 900px ---- */
 @media (max-width: 900px) {
-
-    .datos-clave {
-        width: 30%;
-    }
-
     .contenido {
-        width: 70%;
         padding: 20px;
     }
 
-    .menu-flex {
-        gap: 10px;
-        padding: 15px;
-    }
-
-    .menu-flex a {
+    .menu-flex .nav-link {
         padding: 8px 10px;
     }
 }
 
-/* ---- CELULAR: pantallas de hasta 600px ---- */
+/* ---- CELULAR: hasta 600px ---- */
 @media (max-width: 600px) {
-
-    .menu-flex {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0;
-        padding: 0;
-    }
-
-    .menu-flex a {
-        border-bottom: 1px solid #6b00a8;
-        padding: 12px 20px;
-    }
-
-    .cuerpo-flex {
-        flex-direction: column;
-    }
-
-    .datos-clave,
-    .contenido {
-        width: 100%;
-    }
-
     .datos-clave img {
         width: 100px;
         height: 100px;
@@ -228,8 +141,10 @@ th {
         font-size: 26px;
     }
 
-    th,
-    td {
+    .contenido th,
+    .contenido td,
+    .datos-clave th,
+    .datos-clave td {
         padding: 6px;
         font-size: 14px;
     }

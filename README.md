@@ -1,46 +1,60 @@
 # Cuantum_Computing
 
-Página web educativa de introducción a la **Computación Cuántica**, desarrollada como
-proyecto para la Universidad EAN. Explica desde los conceptos básicos (qubit,
-superposición, entrelazamiento) hasta la **Transformada Cuántica de Fourier (QFT)**
-y sus fórmulas asociadas.
+Pagina web educativa de introduccion a la **Computacion Cuantica**, desarrollada como
+proyecto para la Universidad EAN. Explica desde los conceptos basicos (qubit,
+superposicion, entrelazamiento) hasta la **Transformada Cuantica de Fourier (QFT)**
+y sus formulas asociadas.
 
 ## Estructura del proyecto
 
 ```
 Cuantum_Computing/
-├── index.html          # Introducción
-├── conceptos.html       # Conceptos Fundamentales
-├── qft.html              # Transformada Cuántica de Fourier
-├── comparativa.html     # Comparativa: clásico vs cuántico
-├── formulas.html        # Fórmulas (Regla de Born, estado de n qubits, etc.)
-├── contacto.html         # Formulario de contacto
-├── wireframe.svg         # Wireframe (escritorio / tablet / celular)
+├── html/
+│   ├── index.html            # Introduccion
+│   ├── conceptos.html         # Conceptos Fundamentales
+│   ├── qft.html                # Transformada Cuantica de Fourier
+│   ├── comparativa.html       # Comparativa: clasico vs cuantico
+│   ├── formulas.html          # Formulas (Regla de Born, estado de n qubits, etc.)
+│   └── contacto.html           # Formulario de contacto
+├── bootstrap-5.3.8-dist/      # Bootstrap 5.3.8 completo, tal como se descarga
+├── fontawesome-free-7.3.1-web/ # Font Awesome 7 completo, tal como se descarga
 ├── css/
-│   ├── style.css              # Estilos propios + @media queries (responsive)
-│   └── fontawesome.min.css    # Font Awesome (cargado localmente)
-├── fonts/                  # Archivos .woff2 de Font Awesome (fuentes locales)
-├── img/                    # Imágenes del sitio
-└── mp3/                    # Audios
+│   └── style.css               # Estilos propios + @media queries (responsive)
+├── fonts/                    # Fuentes propias del proyecto (si se agregan)
+├── img/                      # Imagenes del sitio
+├── mp3/                      # Audios
+├── wireframe.svg              # Wireframe (escritorio / tablet / celular)
+└── README.md
 ```
 
-## Tecnologías
+## Tecnologias
 
-- **HTML5** — 6 páginas independientes, cada una con su propia sección.
-- **CSS3** — Flexbox para el layout (menú, barra lateral y contenido).
-- **Diseño responsivo** — `@media` queries con 3 puntos de quiebre:
-  - Escritorio: > 900px
-  - Tablet: 601px – 900px
-  - Celular: ≤ 600px
-- **Font Awesome 7** — iconos del menú, cargados desde una carpeta local (`fonts/`),
-  sin depender de un CDN.
+- **HTML5** - 6 paginas independientes, cada una con su propia seccion.
+- **Bootstrap 5.3.8** (carpeta completa descargada, sin CDN) - usado para el
+  `navbar` responsivo con boton hamburguesa (`navbar-toggler` +
+  `bootstrap.bundle.min.js`) y el sistema de grillas (`container-fluid`, `row`,
+  `col-md-3` / `col-md-9`) que organiza la barra lateral y el contenido.
+- **Font Awesome 7** (carpeta completa descargada, sin CDN) - iconos del menu
+  de navegacion, cargados desde `fontawesome-free-7.3.1-web/css/all.min.css`.
+- **CSS3 propio** (`css/style.css`) - colores, tipografia del tema y
+  **`@media` queries** para ajustes finos en tablet (<=900px) y celular
+  (<=600px) que complementan el comportamiento responsivo de Bootstrap.
+
+## Diseno responsivo
+
+- **Escritorio** (> 900px): barra lateral y contenido lado a lado (grid de
+  Bootstrap), menu horizontal completo.
+- **Tablet** (<= 900px): se reduce el padding del contenido y del menu.
+- **Celular** (<= 768px, segun el grid de Bootstrap): la barra lateral y el
+  contenido se apilan verticalmente, y el menu se colapsa en un boton
+  hamburguesa (componente `navbar` de Bootstrap).
 
 ## Wireframe
 
-El archivo `wireframe.svg` muestra la estructura planeada de la página en sus tres
-versiones (escritorio, tablet y celular): menú de navegación, barra lateral de
-"Datos Clave" y área de contenido.
+El archivo `wireframe.svg` muestra la estructura planeada de la pagina en sus
+tres versiones (escritorio, tablet y celular): menu de navegacion, barra
+lateral de "Datos Clave" y area de contenido.
 
 ## Autor
 
-Justin Thomas Moreno Solano — Universidad EAN
+Justin Thomas Moreno Solano - Universidad EAN
