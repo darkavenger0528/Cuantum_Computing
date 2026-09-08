@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Computación Cuántica - Fórmulas</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <main class="main-container">
+
+        <nav class="menu-flex">
+            <a href="index.html" class=""><i class="fa-solid fa-house"></i>Introducción</a>
+            <a href="conceptos.html" class=""><i class="fa-solid fa-atom"></i>Conceptos</a>
+            <a href="qft.html" class=""><i class="fa-solid fa-wave-square"></i>QFT</a>
+            <a href="comparativa.html" class=""><i class="fa-solid fa-table"></i>Comparativa</a>
+            <a href="formulas.html" class="activo"><i class="fa-solid fa-square-root-variable"></i>Fórmulas</a>
+            <a href="contacto.html" class=""><i class="fa-solid fa-envelope"></i>Contacto</a>
+        </nav>
+
+        <div class="cuerpo-flex">
+
+            <div class="datos-clave">
+                <img src="./img/1.jpg" width="150" height="150" alt="QUBIT">
+                <h2>Datos Clave</h2>
+                <table>
+                    <tr>
+                        <th>Dato</th>
+                        <th>Valor</th>
+                    </tr>
+                    <tr>
+                        <td>Área</td>
+                        <td>Física / Cómputo</td>
+                    </tr>
+                    <tr>
+                        <td>Unidad</td>
+                        <td>Qubit</td>
+                    </tr>
+                    <tr>
+                        <td>Tema central</td>
+                        <td>QFT</td>
+                    </tr>
+                </table>
+
+                <h2>Aplicaciones</h2>
+                <p>Criptografía : Algoritmo de Shor<br>
+                   Simulación : Moléculas y materiales<br>
+                   Búsqueda : Algoritmo de Grover<br>
+                   Optimización : Problemas combinatorios</p>
+            </div>
+
+            <div class="contenido">
+                <h1>Fórmulas</h1>
+                <p>La forma más básica de describir el estado de un qubit es mediante una combinación
+                   (superposición) de sus dos estados base, <strong>|0⟩</strong> y <strong>|1⟩</strong>.
+                   Esta combinación se representa con la siguiente fórmula:</p>
+
+                <div class="conceptos-clave">
+                    <strong>Estado de un qubit (onda cuántica)</strong>
+                    <p>onda = α|0⟩ + β|1⟩</p>
+                </div>
+
+                <table>
+                    <tr>
+                        <th>Símbolo</th>
+                        <th>Significado</th>
+                    </tr>
+                    <tr>
+                        <td>onda</td>
+                        <td>Estado cuántico (función de onda) del qubit</td>
+                    </tr>
+                    <tr>
+                        <td>α (alfa)</td>
+                        <td>Amplitud de probabilidad asociada al estado |0⟩</td>
+                    </tr>
+                    <tr>
+                        <td>β (beta)</td>
+                        <td>Amplitud de probabilidad asociada al estado |1⟩</td>
+                    </tr>
+                    <tr>
+                        <td>|0⟩ , |1⟩</td>
+                        <td>Estados base del qubit (equivalentes cuánticos del 0 y el 1)</td>
+                    </tr>
+                </table>
+
+                <p>Una condición importante es que las probabilidades siempre deben sumar 1:
+                   |α|² + |β|² = 1.</p>
+
+                <p>Esa relación viene directamente de la <strong>Regla de Born</strong>, que conecta la
+                   "onda" cuántica con las probabilidades reales que se obtienen al medir el qubit:</p>
+
+                <div class="conceptos-clave">
+                    <strong>Regla de Born</strong>
+                    <p>P(0) = |α|²</p>
+                    <p>P(1) = |β|²</p>
+                </div>
+
+                <table>
+                    <tr>
+                        <th>Símbolo</th>
+                        <th>Significado</th>
+                    </tr>
+                    <tr>
+                        <td>P(0)</td>
+                        <td>Probabilidad de medir el qubit y obtener el resultado 0</td>
+                    </tr>
+                    <tr>
+                        <td>P(1)</td>
+                        <td>Probabilidad de medir el qubit y obtener el resultado 1</td>
+                    </tr>
+                    <tr>
+                        <td>|α|² , |β|²</td>
+                        <td>Magnitud al cuadrado de cada amplitud</td>
+                    </tr>
+                </table>
+
+                <div class="conceptos-clave">
+                    <strong>Estado general de n qubits</strong>
+                    <p>ψ = u₀|0⟩ + u₁|1⟩ + u₂|2⟩ + ... + u₍ₙ₋₁₎|n-1⟩</p>
+                </div>
+
+                <table>
+                    <tr>
+                        <th>Símbolo</th>
+                        <th>Significado</th>
+                    </tr>
+                    <tr>
+                        <td>ψ</td>
+                        <td>Estado cuántico completo del sistema de n qubits</td>
+                    </tr>
+                    <tr>
+                        <td>u₀, u₁, ...</td>
+                        <td>Amplitudes de probabilidad (números complejos) de cada estado básico</td>
+                    </tr>
+                    <tr>
+                        <td>|0⟩, |1⟩, |2⟩, ...</td>
+                        <td>Cada uno de los 2ⁿ estados básicos posibles del sistema</td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+</html>

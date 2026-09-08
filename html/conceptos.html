@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Computación Cuántica - Conceptos</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <main class="main-container">
+
+        <nav class="menu-flex">
+            <a href="index.html" class=""><i class="fa-solid fa-house"></i>Introducción</a>
+            <a href="conceptos.html" class="activo"><i class="fa-solid fa-atom"></i>Conceptos</a>
+            <a href="qft.html" class=""><i class="fa-solid fa-wave-square"></i>QFT</a>
+            <a href="comparativa.html" class=""><i class="fa-solid fa-table"></i>Comparativa</a>
+            <a href="formulas.html" class=""><i class="fa-solid fa-square-root-variable"></i>Fórmulas</a>
+            <a href="contacto.html" class=""><i class="fa-solid fa-envelope"></i>Contacto</a>
+        </nav>
+
+        <div class="cuerpo-flex">
+
+            <div class="datos-clave">
+                <img src="./img/1.jpg" width="150" height="150" alt="QUBIT">
+                <h2>Datos Clave</h2>
+                <table>
+                    <tr>
+                        <th>Dato</th>
+                        <th>Valor</th>
+                    </tr>
+                    <tr>
+                        <td>Área</td>
+                        <td>Física / Cómputo</td>
+                    </tr>
+                    <tr>
+                        <td>Unidad</td>
+                        <td>Qubit</td>
+                    </tr>
+                    <tr>
+                        <td>Tema central</td>
+                        <td>QFT</td>
+                    </tr>
+                </table>
+
+                <h2>Aplicaciones</h2>
+                <p>Criptografía : Algoritmo de Shor<br>
+                   Simulación : Moléculas y materiales<br>
+                   Búsqueda : Algoritmo de Grover<br>
+                   Optimización : Problemas combinatorios</p>
+            </div>
+
+            <div class="contenido">
+                <h1>Conceptos Fundamentales</h1>
+                <h3>Los seis pilares de la computación cuántica</h3>
+                <p>Antes de entender la QFT, es necesario dominar estos conceptos base:</p>
+                <ul>
+                    <li><strong>Qubit:</strong> unidad básica de información cuántica, análoga al bit clásico.</li>
+                    <li><strong>Superposición:</strong> un qubit puede estar en una combinación de los estados 0 y 1 al mismo tiempo.</li>
+                    <li><strong>Entrelazamiento:</strong> correlación cuántica entre dos o más qubits, donde el estado de uno depende del otro.</li>
+                    <li><strong>Interferencia cuántica:</strong> se usa para amplificar las respuestas correctas y cancelar las incorrectas.</li>
+                    <li><strong>Puerta cuántica:</strong> operación que transforma el estado de uno o varios qubits.</li>
+                    <li><strong>Colapso cuántico:</strong> al medir un qubit en superposición, el sistema se fija de forma determinista en uno de los dos estados básicos.</li>
+                </ul>
+
+                <div class="conceptos-clave">
+                    <strong>¿Por qué un qubit es tan poderoso? (crecimiento exponencial)</strong>
+                    <p>En un sistema clásico, cada bit que agregas suma su información de forma
+                       lineal. En cambio, en un sistema cuántico, cada qubit que agregas <strong>duplica</strong>
+                       el tamaño del espacio de estados posibles: con n qubits el sistema puede describirse con
+                       2ⁿ estados básicos combinados en superposición al mismo tiempo.</p>
+                    <table>
+                        <tr>
+                            <th>Qubits (n)</th>
+                            <th>Estados posibles (2ⁿ)</th>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>2 → |0⟩, |1⟩</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>4 → |00⟩, |01⟩, |10⟩, |11⟩</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>8 estados</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>16 estados</td>
+                        </tr>
+                    </table>
+                </div>
+                <img src="./img/3.jpeg" width="300" height="300" alt="Superposición">
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+</html>

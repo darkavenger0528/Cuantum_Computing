@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Computación Cuántica - QFT</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <main class="main-container">
+
+        <nav class="menu-flex">
+            <a href="index.html" class=""><i class="fa-solid fa-house"></i>Introducción</a>
+            <a href="conceptos.html" class=""><i class="fa-solid fa-atom"></i>Conceptos</a>
+            <a href="qft.html" class="activo"><i class="fa-solid fa-wave-square"></i>QFT</a>
+            <a href="comparativa.html" class=""><i class="fa-solid fa-table"></i>Comparativa</a>
+            <a href="formulas.html" class=""><i class="fa-solid fa-square-root-variable"></i>Fórmulas</a>
+            <a href="contacto.html" class=""><i class="fa-solid fa-envelope"></i>Contacto</a>
+        </nav>
+
+        <div class="cuerpo-flex">
+
+            <div class="datos-clave">
+                <img src="./img/1.jpg" width="150" height="150" alt="QUBIT">
+                <h2>Datos Clave</h2>
+                <table>
+                    <tr>
+                        <th>Dato</th>
+                        <th>Valor</th>
+                    </tr>
+                    <tr>
+                        <td>Área</td>
+                        <td>Física / Cómputo</td>
+                    </tr>
+                    <tr>
+                        <td>Unidad</td>
+                        <td>Qubit</td>
+                    </tr>
+                    <tr>
+                        <td>Tema central</td>
+                        <td>QFT</td>
+                    </tr>
+                </table>
+
+                <h2>Aplicaciones</h2>
+                <p>Criptografía : Algoritmo de Shor<br>
+                   Simulación : Moléculas y materiales<br>
+                   Búsqueda : Algoritmo de Grover<br>
+                   Optimización : Problemas combinatorios</p>
+            </div>
+
+            <div class="contenido">
+                <h1>La Transformada Cuántica de Fourier (QFT)</h1>
+                <p>La Transformada Cuántica de Fourier (Quantum Fourier Transform, QFT) es el análogo cuántico
+                   de la Transformada Discreta de Fourier (DFT) clásica. Así como la DFT permite descomponer
+                   una señal en sus frecuencias, la QFT transforma la amplitud de un estado cuántico de la
+                   "base computacional" a la "base de frecuencias", pero aprovechando la superposición para
+                   hacerlo con muchos menos pasos que su versión clásica.</p>
+                <p>Su gran importancia radica en que es una pieza central de varios algoritmos cuánticos famosos,
+                   entre ellos el algoritmo de Shor (factorización de números enteros) y el algoritmo de
+                   estimación de fase, que a su vez es la base de muchos otros algoritmos cuánticos.</p>
+
+                <div class="conceptos-clave">
+                    <strong>Ideas clave de la QFT</strong>
+                    <ul>
+                        <li>Es el equivalente cuántico de la Transformada Discreta de Fourier (DFT).</li>
+                        <li>Se implementa usando puertas Hadamard y puertas de fase controladas.</li>
+                        <li>Un algoritmo clásico necesita O(N log N) operaciones (con la FFT); la QFT lo logra en O((log N)²) puertas cuánticas.</li>
+                        <li>Es un ingrediente clave del algoritmo de Shor y de la estimación de fase cuántica.</li>
+                    </ul>
+                </div>
+                <img src="./img/4.jpeg" width="300" height="300" alt="Fourier">
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+</html>
