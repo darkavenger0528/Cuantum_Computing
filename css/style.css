@@ -17,6 +17,20 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: "JetBrains Mono";
+    src: url("../fonts/jetbrains-mono-400.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "JetBrains Mono";
+    src: url("../fonts/jetbrains-mono-700.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+}
+
 /* ===== Paleta de colores (morado + verde "matrix") =====
    Fondo:      #0b0b12  (casi negro, con tinte azulado)
    Morado:     #7c3aed  (violeta vibrante, reemplaza al morado apagado anterior)
@@ -26,10 +40,14 @@
 */
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "JetBrains Mono", Arial, Helvetica, sans-serif;
     background-color: #0b0b12;
     color: #e6e1f5;
     line-height: 1.8;
+}
+
+strong {
+    font-weight: 700;
 }
 
 h1 {
@@ -104,8 +122,25 @@ a {
 .datos-clave {
     background-color: #1e1330;
     color: #e6e1f5;
-    padding: 20px 10px;
+    padding: 30px 15px;
     border-right: 2px solid #7c3aed;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.datos-clave img {
+    margin: 0 auto 15px auto;
+}
+
+.datos-clave table {
+    margin: 0 auto 15px auto;
+}
+
+.datos-clave p {
+    text-align: center;
 }
 
 .datos-clave h2 {
@@ -201,6 +236,17 @@ form label {
 
     .menu-flex .nav-link {
         padding: 8px 10px;
+    }
+}
+
+/* En escritorio/tablet, la barra lateral ocupa 25% (col-md-3) y el
+   contenido el 75% restante (col-md-9). Alineamos el menú de navegación
+   para que el bloque de links empiece justo donde arranca esa columna
+   de contenido, en vez de pegado al nombre del sitio. */
+@media (min-width: 768px) {
+    .menu-flex .navbar-brand {
+        flex: 0 0 25%;
+        max-width: 25%;
     }
 }
 
