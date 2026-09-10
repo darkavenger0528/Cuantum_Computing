@@ -2,7 +2,7 @@
    asi que solo contiene los ajustes propios (colores, tipografia del tema
    cuantico) que Bootstrap no trae por defecto. */
 
-/* ===== Fuentes propias (estilo "terminal / matrix") ===== */
+/* ===== Fuentes propias (estilo "terminal / matrix", pero suavizado) ===== */
 @font-face {
     font-family: "VT323";
     src: url("../fonts/vt323.woff2") format("woff2");
@@ -31,41 +31,57 @@
     font-style: normal;
 }
 
-/* ===== Paleta de colores (morado + verde "matrix") =====
-   Fondo:      #0b0b12  (casi negro, con tinte azulado)
-   Morado:     #7c3aed  (violeta vibrante, reemplaza al morado apagado anterior)
-   Morado osc: #2a1a4a  (para la barra lateral, menos "plano" que el morado puro)
-   Acento:     #39ff9d  (verde menta neon, el toque "matrix")
-   Texto:      #e6e1f5  (lavanda muy claro, mejor contraste que blanco puro)
+/* ===== Paleta de colores (morado + verde "matrix", version suave) =====
+   Fondo:        #0e0c16  (casi negro, con tinte azulado - un poco menos duro que antes)
+   Panel:        #17131f  (paneles/tarjetas, apenas mas claro que el fondo)
+   Morado:       #8b5cf6  (violeta, ahora se usa como ACENTO, no como relleno solido)
+   Morado suave: rgba(139, 92, 246, 0.35)  (para bordes/sombras sutiles)
+   Acento verde: #4ade80  (verde mas suave que el neon anterior, menos "quema los ojos")
+   Texto:        #cbd0dc  (gris azulado claro, mas descansado que blanco/lavanda puro)
+   Texto tenue:  #8b8fa3  (para texto secundario)
 */
+
+* {
+    box-sizing: border-box;
+}
 
 body {
     font-family: "JetBrains Mono", Arial, Helvetica, sans-serif;
-    background-color: #0b0b12;
-    color: #e6e1f5;
-    line-height: 1.8;
+    background-color: #0e0c16;
+    color: #cbd0dc;
+    line-height: 1.9;
 }
 
 strong {
     font-weight: 700;
+    color: #e3e6ee;
 }
 
 h1 {
-    font-family: "VT323", monospace;
-    font-size: 44px;
-    letter-spacing: 1px;
-    color: #39ff9d;
+    font-family: "Share Tech Mono", monospace;
+    font-size: 38px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    color: #f1f2f6;
+    margin-bottom: 20px;
 }
 
 h2 {
     font-family: "Share Tech Mono", monospace;
-    margin-top: 20px;
-    color: #b794f6;
+    margin-top: 30px;
+    margin-bottom: 14px;
+    font-size: 22px;
+    color: #c4b5fd;
 }
 
 h3 {
     font-family: "Share Tech Mono", monospace;
-    color: #9f7aea;
+    font-size: 18px;
+    color: #a78bfa;
+}
+
+p {
+    color: #a8adc0;
 }
 
 ul {
@@ -73,109 +89,141 @@ ul {
 }
 
 a {
-    color: #39ff9d;
+    color: #4ade80;
+    text-decoration: none;
+    transition: color 0.25s ease;
 }
 
-/* ===== Barra de navegacion (Bootstrap navbar + colores propios) ===== */
+a:hover {
+    color: #86efac;
+}
+
+/* ===== Barra de navegacion ===== */
 .menu-flex {
-    background-color: #1a1025;
-    border-bottom: 3px solid #7c3aed;
+    background-color: #131019;
+    border-bottom: 1px solid rgba(139, 92, 246, 0.25);
+    padding-top: 6px;
+    padding-bottom: 6px;
 }
 
 .menu-flex .navbar-brand {
     font-family: "VT323", monospace;
-    font-size: 26px;
-    letter-spacing: 1px;
-    color: #39ff9d !important;
+    font-size: 24px;
+    letter-spacing: 0.5px;
+    color: #f1f2f6 !important;
+}
+
+.menu-flex .navbar-brand i {
+    color: #8b5cf6;
 }
 
 .menu-flex .nav-link {
     font-family: "Share Tech Mono", monospace;
-    color: #e6e1f5 !important;
-    transition: background-color 0.3s, color 0.3s;
+    font-size: 14px;
+    color: #a8adc0 !important;
+    border-radius: 20px;
+    padding: 8px 16px;
+    margin: 2px 3px;
+    transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 .menu-flex .nav-link i {
     margin-right: 6px;
-    color: #9f7aea;
+    opacity: 0.8;
 }
 
 .menu-flex .nav-link:hover {
-    background-color: #7c3aed;
-    color: #0b0b12 !important;
-}
-
-.menu-flex .nav-link:hover i {
-    color: #0b0b12;
+    background-color: rgba(139, 92, 246, 0.15);
+    color: #e3e6ee !important;
 }
 
 .menu-flex .nav-link.activo {
-    background-color: #39ff9d;
-    color: #0b0b12 !important;
+    background-color: rgba(74, 222, 128, 0.12);
+    color: #4ade80 !important;
 }
 
 .menu-flex .nav-link.activo i {
-    color: #0b0b12;
+    opacity: 1;
 }
 
 /* ===== Barra lateral "Datos Clave" ===== */
 .datos-clave {
-    background-color: #1e1330;
-    color: #e6e1f5;
-    padding: 30px 15px;
-    border-right: 2px solid #7c3aed;
+    background-color: #131019;
+    color: #cbd0dc;
+    padding: 40px 20px;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    border-right: 1px solid rgba(139, 92, 246, 0.2);
 }
 
 .datos-clave img {
-    margin: 0 auto 15px auto;
-}
-
-.datos-clave table {
-    margin: 0 auto 15px auto;
-}
-
-.datos-clave p {
-    text-align: center;
+    margin: 0 auto 20px auto;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
 }
 
 .datos-clave h2 {
-    color: #39ff9d;
+    color: #f1f2f6;
+    font-size: 18px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.datos-clave table {
+    margin: 0 auto 25px auto;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 .datos-clave th,
 .datos-clave td {
-    border: 2px solid #7c3aed;
-    padding: 10px;
-    color: #e6e1f5;
+    border: 1px solid rgba(139, 92, 246, 0.25);
+    padding: 10px 14px;
+    color: #cbd0dc;
 }
 
 .datos-clave th {
     font-family: "Share Tech Mono", monospace;
-    background-color: #7c3aed;
-    color: #0b0b12;
+    font-size: 13px;
+    background-color: rgba(139, 92, 246, 0.2);
+    color: #e3e6ee;
+}
+
+.datos-clave p {
+    text-align: center;
+    color: #8b8fa3;
+    font-size: 14px;
 }
 
 /* ===== Contenido principal ===== */
 .contenido {
-    background-color: #120c1c;
-    padding: 20px 40px;
+    background-color: #0e0c16;
+    padding: 50px 60px;
 }
 
 .conceptos-clave {
-    background-color: #1a1025;
-    border: 1px solid #7c3aed;
-    padding: 15px;
-    margin: 15px 0;
+    background-color: #17131f;
+    border: 1px solid rgba(139, 92, 246, 0.25);
+    border-radius: 14px;
+    padding: 22px 26px;
+    margin: 20px 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.conceptos-clave:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.4);
 }
 
 .conceptos-clave strong {
     font-family: "Share Tech Mono", monospace;
-    color: #39ff9d;
+    color: #4ade80;
 }
 
 .titulo-tabla {
@@ -185,64 +233,92 @@ a {
 /* Tablas propias del contenido (fuera de la barra lateral) */
 .contenido table {
     width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 15px 0 25px 0;
 }
 
 .contenido th,
 .contenido td {
-    border: 1px solid #7c3aed;
-    padding: 8px;
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    padding: 12px 14px;
     text-align: left;
 }
 
 .contenido th {
     font-family: "Share Tech Mono", monospace;
-    background-color: #7c3aed;
-    color: #0b0b12;
+    font-size: 13px;
+    background-color: rgba(139, 92, 246, 0.18);
+    color: #e3e6ee;
 }
 
 .contenido strong {
-    color: #b794f6;
+    color: #c4b5fd;
+}
+
+.contenido img {
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    margin-top: 10px;
 }
 
 /* Formulario de contacto */
 form label {
     font-family: "Share Tech Mono", monospace;
+    font-size: 14px;
+    color: #a8adc0;
+}
+
+.form-control {
+    background-color: #17131f;
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 8px;
+    color: #cbd0dc;
+}
+
+.form-control:focus {
+    background-color: #17131f;
+    border-color: #8b5cf6;
+    color: #e3e6ee;
+    box-shadow: 0 0 0 0.2rem rgba(139, 92, 246, 0.25);
 }
 
 .btn-primary {
-    background-color: #7c3aed !important;
-    border-color: #7c3aed !important;
+    background-color: #8b5cf6 !important;
+    border-color: #8b5cf6 !important;
     font-family: "Share Tech Mono", monospace;
+    border-radius: 8px;
+    padding: 8px 22px;
+    transition: background-color 0.25s ease, transform 0.15s ease;
 }
 
 .btn-primary:hover {
-    background-color: #39ff9d !important;
-    border-color: #39ff9d !important;
-    color: #0b0b12 !important;
+    background-color: #7c3aed !important;
+    border-color: #7c3aed !important;
+    transform: translateY(-1px);
 }
 
 /* =========================================================
    RESPONSIVE - @media queries propias
-   (Bootstrap ya apila el grid col-md-3 / col-md-9 en moviles,
-   pero aqui ajustamos tamanos, tipografia e imagenes que
-   Bootstrap no controla)
    ========================================================= */
 
 /* ---- TABLET: hasta 900px ---- */
 @media (max-width: 900px) {
     .contenido {
-        padding: 20px;
+        padding: 30px 25px;
     }
 
     .menu-flex .nav-link {
-        padding: 8px 10px;
+        padding: 8px 12px;
     }
 }
 
 /* En escritorio/tablet, la barra lateral ocupa 25% (col-md-3) y el
-   contenido el 75% restante (col-md-9). Alineamos el menú de navegación
+   contenido el 75% restante (col-md-9). Alineamos el menu de navegacion
    para que el bloque de links empiece justo donde arranca esa columna
-   de contenido, en vez de pegado al nombre del sitio. */
+   de contenido. */
 @media (min-width: 768px) {
     .menu-flex .navbar-brand {
         flex: 0 0 25%;
@@ -253,23 +329,23 @@ form label {
 /* ---- CELULAR: hasta 600px ---- */
 @media (max-width: 600px) {
     .datos-clave img {
-        width: 100px;
-        height: 100px;
+        width: 110px;
+        height: 110px;
     }
 
     .contenido {
-        padding: 15px;
+        padding: 20px;
     }
 
     h1 {
-        font-size: 32px;
+        font-size: 28px;
     }
 
     .contenido th,
     .contenido td,
     .datos-clave th,
     .datos-clave td {
-        padding: 6px;
-        font-size: 14px;
+        padding: 8px;
+        font-size: 13px;
     }
 }
