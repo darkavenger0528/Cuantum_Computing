@@ -17,8 +17,8 @@ Cuantum_Computing/
 │   ├── procesadores.html      # Procesadores cuanticos (datos via API REST)
 │   ├── formulas.html          # Formulas (Regla de Born, estado de n qubits, etc.)
 │   └── contacto.html           # Formulario de contacto
-├── bootstrap-5.3.8-dist/      # Bootstrap 5.3.8 completo, tal como se descarga
-├── fontawesome-free-7.3.1-web/ # Font Awesome 7 completo, tal como se descarga
+├── bootstrap/                 # Bootstrap 5.3.8 (solo css/ y js/ necesarios)
+├── fontawesome/                # Font Awesome 7 (solo css/ y webfonts/ necesarios)
 ├── css/
 │   └── style.css               # Estilos propios + @media queries (responsive)
 ├── fonts/                    # Fuentes propias del proyecto (si se agregan)
@@ -30,13 +30,13 @@ Cuantum_Computing/
 
 ## Tecnologias
 
-- **HTML5** - 6 paginas independientes, cada una con su propia seccion.
-- **Bootstrap 5.3.8** (carpeta completa descargada, sin CDN) - usado para el
+- **HTML5** - 7 paginas independientes, cada una con su propia seccion.
+- **Bootstrap 5.3.8** (carpeta `bootstrap/`, sin CDN) - usado para el
   `navbar` responsivo con boton hamburguesa (`navbar-toggler` +
   `bootstrap.bundle.min.js`) y el sistema de grillas (`container-fluid`, `row`,
   `col-md-3` / `col-md-9`) que organiza la barra lateral y el contenido.
-- **Font Awesome 7** (carpeta completa descargada, sin CDN) - iconos del menu
-  de navegacion, cargados desde `fontawesome-free-7.3.1-web/css/all.min.css`.
+- **Font Awesome 7** (carpeta `fontawesome/`, sin CDN) - iconos del menu
+  de navegacion, cargados desde `fontawesome/css/all.min.css`.
 - **CSS3 propio** (`css/style.css`) - colores, tipografia del tema y
   **`@media` queries** para ajustes finos en tablet (<=900px) y celular
   (<=600px) que complementan el comportamiento responsivo de Bootstrap.
@@ -50,7 +50,7 @@ Cuantum_Computing/
 
 - **Escritorio** (> 900px): barra lateral y contenido lado a lado (grid de
   Bootstrap), menu horizontal completo.
-- **Tablet** (<= 900px): se reduce el padding del contenido y del menu.
+- **Tablet** (768px - 900px): se reduce el padding del contenido y del menu.
 - **Celular** (<= 768px, segun el grid de Bootstrap): la barra lateral y el
   contenido se apilan verticalmente, y el menu se colapsa en un boton
   hamburguesa (componente `navbar` de Bootstrap).
