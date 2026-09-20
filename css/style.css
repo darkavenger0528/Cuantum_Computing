@@ -1,8 +1,3 @@
-/* Este archivo se carga DESPUES de bootstrap.min.css y fontawesome.min.css,
-   asi que solo contiene los ajustes propios (colores, tipografia del tema
-   cuantico) que Bootstrap no trae por defecto. */
-
-/* ===== Fuentes propias (estilo "terminal / matrix", pero suavizado) ===== */
 @font-face {
     font-family: "VT323";
     src: url("../fonts/vt323.woff2") format("woff2");
@@ -30,16 +25,6 @@
     font-weight: 700;
     font-style: normal;
 }
-
-/* ===== Paleta de colores (morado + verde "matrix", version suave) =====
-   Fondo:        #0e0c16  (casi negro, con tinte azulado - un poco menos duro que antes)
-   Panel:        #17131f  (paneles/tarjetas, apenas mas claro que el fondo)
-   Morado:       #8b5cf6  (violeta, ahora se usa como ACENTO, no como relleno solido)
-   Morado suave: rgba(139, 92, 246, 0.35)  (para bordes/sombras sutiles)
-   Acento verde: #4ade80  (verde mas suave que el neon anterior, menos "quema los ojos")
-   Texto:        #cbd0dc  (gris azulado claro, mas descansado que blanco/lavanda puro)
-   Texto tenue:  #8b8fa3  (para texto secundario)
-*/
 
 * {
     box-sizing: border-box;
@@ -301,10 +286,9 @@ form label {
 }
 
 /* =========================================================
-   RESPONSIVE - @media queries propias
+   RESPONSIVE - @media
    ========================================================= */
 
-/* ---- TABLET: hasta 900px ---- */
 @media (max-width: 900px) {
     .contenido {
         padding: 30px 25px;
@@ -315,10 +299,6 @@ form label {
     }
 }
 
-/* En escritorio/tablet, la barra lateral ocupa 25% (col-md-3) y el
-   contenido el 75% restante (col-md-9). Alineamos el menu de navegacion
-   para que el bloque de links empiece justo donde arranca esa columna
-   de contenido. */
 @media (min-width: 768px) {
     .menu-flex .navbar-brand {
         flex: 0 0 25%;
@@ -326,7 +306,6 @@ form label {
     }
 }
 
-/* ---- CELULAR: hasta 600px ---- */
 @media (max-width: 600px) {
     .datos-clave img {
         width: 110px;

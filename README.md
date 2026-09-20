@@ -14,6 +14,7 @@ Cuantum_Computing/
 │   ├── conceptos.html         # Conceptos Fundamentales
 │   ├── qft.html                # Transformada Cuantica de Fourier
 │   ├── comparativa.html       # Comparativa: clasico vs cuantico
+│   ├── procesadores.html      # Procesadores cuanticos (datos via API REST)
 │   ├── formulas.html          # Formulas (Regla de Born, estado de n qubits, etc.)
 │   └── contacto.html           # Formulario de contacto
 ├── bootstrap-5.3.8-dist/      # Bootstrap 5.3.8 completo, tal como se descarga
@@ -39,6 +40,11 @@ Cuantum_Computing/
 - **CSS3 propio** (`css/style.css`) - colores, tipografia del tema y
   **`@media` queries** para ajustes finos en tablet (<=900px) y celular
   (<=600px) que complementan el comportamiento responsivo de Bootstrap.
+- **API REST (Retool API Generator)** - la pagina `procesadores.html`
+  consume, mediante `fetch()` en JavaScript puro, un dataset simulado de
+  procesadores cuanticos (`https://retoolapi.dev/pnc4c1/data`). Las columnas
+  de la tabla se generan dinamicamente a partir de las claves del JSON
+  recibido, por lo que la pagina no rompe si el dataset cambia.
 
 ## Diseno responsivo
 

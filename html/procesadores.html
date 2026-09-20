@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Computación Cuántica - Procesadores</title>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <main>
+
+        <nav class="navbar navbar-expand-md navbar-dark menu-flex">
+            <div class="container-fluid">
+                <a class="navbar-brand text-white" href="index.html">
+                    <i class="fa-solid fa-atom"></i> Computación Cuántica
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"
+                        aria-controls="navMenu" aria-expanded="false" aria-label="Abrir menú">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navMenu">
+                    <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link " href="index.html"><i class="fa-solid fa-house"></i>Introducción</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="conceptos.html"><i class="fa-solid fa-atom"></i>Conceptos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="qft.html"><i class="fa-solid fa-wave-square"></i>QFT</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="comparativa.html"><i class="fa-solid fa-table"></i>Comparativa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link activo" href="procesadores.html"><i class="fa-solid fa-microchip"></i>Procesadores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="formulas.html"><i class="fa-solid fa-square-root-variable"></i>Fórmulas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="contacto.html"><i class="fa-solid fa-envelope"></i>Contacto</a>
+                    </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container-fluid">
+            <div class="row cuerpo-flex">
+
+                <div class="col-md-3 datos-clave">
+                <img src="../img/1.jpg" width="150" height="150" alt="QUBIT" class="img-fluid">
+                <h2>Datos Clave</h2>
+                <table>
+                    <tr>
+                        <th>Dato</th>
+                        <th>Valor</th>
+                    </tr>
+                    <tr>
+                        <td>Fuente</td>
+                        <td>API (Retool)</td>
+                    </tr>
+                    <tr>
+                        <td>Registros</td>
+                        <td id="dc-total">—</td>
+                    </tr>
+                    <tr>
+                        <td>Actualización</td>
+                        <td>En vivo</td>
+                    </tr>
+                </table>
+
+                <h2>Sobre estos datos</h2>
+                <p>Muestra simulada de procesadores cuánticos reales del mercado
+                   (IBM, Google, IonQ, Rigetti, etc.) generada como dataset de
+                   práctica para ilustrar métricas típicas de hardware
+                   cuántico: número de qubits, tiempos de coherencia y
+                   algoritmos asociados.</p>
+            </div>
+
+                <div class="col-md-9 contenido">
+                    <h1 class="titulo-tabla">Procesadores Cuánticos</h1>
+                    <p style="text-align:center;">
+                        Datos obtenidos en tiempo real desde una API REST
+                        (<a href="https://retoolapi.dev/pnc4c1/data" target="_blank" rel="noopener">retoolapi.dev</a>).
+                    </p>
+
+                    <div id="estado-carga" style="text-align:center; padding: 30px 0;">
+                        <i class="fa-solid fa-atom fa-spin"></i> Cargando procesadores...
+                    </div>
+
+                    <div id="tabla-wrapper" style="overflow-x:auto; display:none;">
+                        <table id="tabla-procesadores">
+                            <thead></thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const API_URL = "https://retoolapi.dev/pnc4c1/data";
+
+        // Convierte "processor_name" -> "Processor Name" para los encabezados
+        function formatearEncabezado(clave) {
+            return clave
+                .replace(/_/g, " ")
+                .replace(/\b\w/g, letra => letra.toUpperCase());
+        }
+
+        async function cargarProcesadores() {
+            const estadoCarga = document.getElementById("estado-carga");
+            const wrapper = document.getElementById("tabla-wrapper");
+            const thead = document.querySelector("#tabla-procesadores thead");
+            const tbody = document.querySelector("#tabla-procesadores tbody");
+
+            try {
+                const respuesta = await fetch(API_URL);
+                if (!respuesta.ok) throw new Error("Respuesta no válida de la API");
+
+                const datos = await respuesta.json();
+
+                if (!Array.isArray(datos) || datos.length === 0) {
+                    throw new Error("La API no devolvió registros");
+                }
+
+                // Encabezados dinámicos según las columnas reales de la API
+                const columnas = Object.keys(datos[0]);
+                const filaEncabezado = document.createElement("tr");
+                columnas.forEach(col => {
+                    const th = document.createElement("th");
+                    th.textContent = formatearEncabezado(col);
+                    filaEncabezado.appendChild(th);
+                });
+                thead.appendChild(filaEncabezado);
+
+                // Filas de datos
+                datos.forEach(registro => {
+                    const fila = document.createElement("tr");
+                    columnas.forEach(col => {
+                        const td = document.createElement("td");
+                        td.textContent = registro[col];
+                        fila.appendChild(td);
+                    });
+                    tbody.appendChild(fila);
+                });
+
+                document.getElementById("dc-total").textContent = datos.length;
+
+                estadoCarga.style.display = "none";
+                wrapper.style.display = "block";
+
+            } catch (error) {
+                estadoCarga.innerHTML =
+                    '<i class="fa-solid fa-triangle-exclamation"></i> ' +
+                    'No se pudieron cargar los datos en este momento. ' +
+                    'Intenta recargar la página.';
+                console.error("Error al cargar procesadores:", error);
+            }
+        }
+
+        cargarProcesadores();
+    </script>
+</body>
+</html>
