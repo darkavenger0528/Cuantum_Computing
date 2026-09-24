@@ -285,10 +285,6 @@ form label {
     transform: translateY(-1px);
 }
 
-/* =========================================================
-   RESPONSIVE - @media
-   ========================================================= */
-
 @media (max-width: 900px) {
     .contenido {
         padding: 30px 25px;
@@ -328,3 +324,81 @@ form label {
         font-size: 13px;
     }
 }
+
+/* --- Columna izquierda fija --- */
+@media (min-width: 768px) {
+    .datos-clave { position: sticky; top: var(--nav-h); align-self: flex-start; height: calc(100vh - var(--nav-h)); overflow-y: auto;
+        justify-content: flex-start; padding: 32px 20px; border-right: 0; }
+    .contenido { border-left: 1px solid rgba(139, 92, 246, 0.2); min-height: calc(100vh - var(--nav-h)); }
+}
+@media (min-width: 768px) and (max-height: 780px) { .datos-clave img { display: none; } }
+
+@media (max-width: 767px) {
+    .hero h1 { padding-left: 0; }
+    .hero-foto { width: 100%; }
+    .hero-vertical { display: none; }
+}
+
+
+/* ===== Barra de navegacion fija ===== */
+.menu-flex { position: sticky; top: 0; z-index: 1030; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* ===== Linea de tiempo de procesadores ===== */
+.linea-tiempo { position: relative; display: flex; overflow-x: auto; padding: 28px 4px 16px; margin: 10px 0 18px; }
+.linea-tiempo::before { content: ""; position: absolute; left: 0; right: 0; top: 34px; height: 2px; background: rgba(139, 92, 246, 0.35); }
+.lt-nodo { position: relative; flex: 0 0 auto; min-width: 150px; padding: 0 10px; background: none; border: 0; color: #a8adc0; text-align: center; font-family: "Share Tech Mono", monospace; font-size: 13px; line-height: 1.5; cursor: pointer; }
+.lt-nodo::before { content: ""; display: block; width: 14px; height: 14px; margin: 0 auto 10px; border-radius: 50%; background: #0e0c16; border: 2px solid #8b5cf6; position: relative; z-index: 1; transition: background-color 0.2s ease, border-color 0.2s ease; }
+.lt-nodo small { display: block; font-size: 11px; color: #8b8fa3; }
+.lt-nodo:hover { color: #e3e6ee; }
+.lt-nodo:focus-visible { outline: 2px solid #4ade80; outline-offset: 4px; border-radius: 8px; }
+.lt-nodo.activo { color: #4ade80; }
+.lt-nodo.activo::before { background: #4ade80; border-color: #4ade80; }
+#lt-detalle p { margin: 6px 0 0 0; }
+
+/* ===== Formulas: Dirac y compuertas ===== */
+.formula { font-family: "Share Tech Mono", monospace; font-size: 20px; color: #f1f2f6 !important; margin: 10px 0 4px; }
+.compuertas { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 15px 0 25px; }
+.compuertas .conceptos-clave { margin: 0; }
+.matriz { display: inline-grid; gap: 4px 20px; padding: 4px 14px; margin: 8px 8px 8px 0; border-left: 2px solid #a78bfa; border-right: 2px solid #a78bfa; font-family: "Share Tech Mono", monospace; color: #f1f2f6; text-align: center; vertical-align: middle; }
+.matriz.c1 { grid-template-columns: auto; }
+.matriz.c2 { grid-template-columns: repeat(2, auto); }
+.matriz.c4 { grid-template-columns: repeat(4, auto); gap: 4px 12px; }
+
+
+/* =====================================================
+   REDISENO: tipografia enorme + espacio (Chaptr)
+   y titular que se superpone a la foto (Drop Tokyo)
+   ===================================================== */
+:root { --nav-h: 68px; }
+html { scrollbar-color: #4b3a86 #0e0c16; scrollbar-width: thin; }
+* { scrollbar-color: #4b3a86 #17131f; scrollbar-width: thin; }
+
+/* --- Hero --- */
+.hero { position: relative; isolation: isolate; display: grid; min-height: 46vh; margin-bottom: clamp(40px, 7vw, 96px); }
+.hero > * { grid-area: 1 / 1; }
+.hero-foto { justify-self: start; align-self: start; width: min(58%, 440px); height: auto; aspect-ratio: 1; object-fit: cover; }
+.contenido .hero .hero-foto { border-radius: 0; box-shadow: none; margin: 0; }
+.hero h1 { z-index: 2; align-self: end; justify-self: start; margin: 0 0 -0.08em 0; padding-left: 22%;
+    font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: clamp(2.6rem, 6.5vw, 7rem);
+    line-height: 0.95; letter-spacing: -0.05em; color: #f1f2f6; mix-blend-mode: difference; overflow-wrap: anywhere; }
+.hero.sin-foto { min-height: 34vh; }
+.hero.sin-foto h1 { padding-left: 0; mix-blend-mode: normal; }
+.hero-vertical { z-index: 3; justify-self: end; align-self: start; writing-mode: vertical-rl;
+    font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: clamp(1rem, 2vw, 1.7rem);
+    line-height: 1.2; color: #4ade80; }
+
+/* --- Espacio y medida de lectura --- */
+.contenido { padding: clamp(28px, 5vw, 72px) clamp(20px, 6vw, 110px); }
+.contenido p, .contenido li { max-width: 68ch; }
+.contenido p { line-height: 2; }
+.hero ~ p:first-of-type { font-size: 1.2rem; line-height: 1.8; color: #e3e6ee; }
+.contenido h2 { font-size: clamp(1.5rem, 2.6vw, 2.4rem); margin-top: 72px; margin-bottom: 20px; letter-spacing: -0.01em; }
+.contenido h3 { font-size: 1.3rem; margin-top: 40px; }
+
+/* --- Bloques sin tarjeta: linea lateral --- */
+.conceptos-clave { background: transparent; border: 0; border-left: 2px solid #8b5cf6; border-radius: 0; box-shadow: none; padding: 6px 0 6px 24px; margin: 32px 0; }
+.conceptos-clave:hover { transform: none; box-shadow: none; }
+
+

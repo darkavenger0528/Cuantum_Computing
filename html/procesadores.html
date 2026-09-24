@@ -55,7 +55,7 @@
             <div class="row cuerpo-flex">
 
                 <div class="col-md-3 datos-clave">
-                <img src="../img/1.jpg" width="150" height="150" alt="QUBIT" class="img-fluid">
+                <img src="../img/qubit.svg" width="150" height="150" alt="QUBIT" class="img-fluid">
                 <h2>Datos Clave</h2>
                 <table>
                     <tr>
@@ -85,11 +85,22 @@
             </div>
 
                 <div class="col-md-9 contenido">
-                    <h1 class="titulo-tabla">Procesadores Cuánticos</h1>
-                    <p style="text-align:center;">
+                    <header class="hero">
+                        <img class="hero-foto" src="../img/hero-procesadores.svg" width="440" height="440" alt="Chip cuántico con una red de qubits">
+                        <h1>Procesadores Cuánticos</h1>
+                        <span class="hero-vertical" aria-hidden="true">Qubits y coherencia, procesador por procesador</span>
+                    </header>
+                    <p>
                         Datos obtenidos en tiempo real desde una API REST
                         (<a href="https://retoolapi.dev/pnc4c1/data" target="_blank" rel="noopener">retoolapi.dev</a>).
                     </p>
+
+                    <div id="lt-wrap" style="display:none;">
+                        <h2>Línea de tiempo por procesador</h2>
+                        <p>Los procesadores están ordenados por su primera publicación. Elige uno para filtrar la tabla.</p>
+                        <div class="linea-tiempo" id="linea-tiempo"></div>
+                        <div class="conceptos-clave" id="lt-detalle" aria-live="polite"></div>
+                    </div>
 
                     <div id="estado-carga" style="text-align:center; padding: 30px 0;">
                         <i class="fa-solid fa-atom fa-spin"></i> Cargando procesadores...
@@ -111,12 +122,62 @@
     <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
     <script>
         const API_URL = "https://retoolapi.dev/pnc4c1/data";
+        const fmtEnc = c => c.replace(/_/g, " ").replace(/\b\w/g, l => l.toUpperCase());
+        const fmtFecha = s => { const t = typeof s === "number" ? s : Date.parse(s); return isNaN(t) ? s : new Date(t).toLocaleDateString("es-CO", {day:"numeric", month:"short", year:"numeric"}); };
+        const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
-        // Convierte "processor_name" -> "Processor Name" para los encabezados
-        function formatearEncabezado(clave) {
-            return clave
-                .replace(/_/g, " ")
-                .replace(/\b\w/g, letra => letra.toUpperCase());
+        let datos = [], grupos = [];
+
+        function agrupar() {
+            const m = new Map();
+            datos.forEach(r => {
+                const g = m.get(r.processor_name) || {nombre: r.processor_name, filas: [], primera: Infinity};
+                g.filas.push(r);
+                g.primera = Math.min(g.primera, Date.parse(r.publication_date) || Infinity);
+                m.set(r.processor_name, g);
+            });
+            return [...m.values()].sort((a, b) => a.primera - b.primera);
+        }
+
+        function seleccionar(nombre) {
+            document.querySelectorAll(".lt-nodo").forEach(b => {
+                const on = b.dataset.proc === nombre;
+                b.classList.toggle("activo", on);
+                b.setAttribute("aria-pressed", on);
+                if (on) b.scrollIntoView({inline: "center", block: "nearest", behavior: "smooth"});
+            });
+            document.querySelectorAll("#tabla-procesadores tbody tr").forEach(tr => {
+                tr.style.display = (nombre === "todos" || tr.dataset.proc === nombre) ? "" : "none";
+            });
+            const d = document.getElementById("lt-detalle");
+            if (nombre === "todos") {
+                d.innerHTML = `<strong>Todos los procesadores</strong><p>${datos.length} registros de ${grupos.length} procesadores distintos.</p>`;
+                return;
+            }
+            const f = grupos.find(g => g.nombre === nombre).filas;
+            const maxQ = Math.max(...f.map(r => r.qubit_count));
+            const prom = Math.round(f.reduce((s, r) => s + r.coherence_time_us, 0) / f.length);
+            const algs = [...new Set(f.map(r => r.algorithm_type))].join(", ");
+            d.innerHTML = `<strong>${esc(nombre)}</strong>
+                <p>${f.length} registros · máximo ${maxQ} qubits · coherencia promedio ${prom} µs</p>
+                <p>Algoritmos: ${esc(algs)}</p>`;
+        }
+
+        function dibujarLinea() {
+            const cont = document.getElementById("linea-tiempo");
+            const nodos = [{nombre: "todos", etiqueta: "Todos", sub: datos.length + " registros"}]
+                .concat(grupos.map(g => ({nombre: g.nombre, etiqueta: g.nombre, sub: fmtFecha(g.primera)})));
+            nodos.forEach(n => {
+                const b = document.createElement("button");
+                b.type = "button";
+                b.className = "lt-nodo";
+                b.dataset.proc = n.nombre;
+                b.innerHTML = `${esc(n.etiqueta)}<small>${esc(n.sub)}</small>`;
+                b.addEventListener("click", () => seleccionar(n.nombre));
+                cont.appendChild(b);
+            });
+            document.getElementById("lt-wrap").style.display = "block";
+            seleccionar("todos");
         }
 
         async function cargarProcesadores() {
@@ -128,26 +189,21 @@
             try {
                 const respuesta = await fetch(API_URL);
                 if (!respuesta.ok) throw new Error("Respuesta no válida de la API");
+                datos = await respuesta.json();
+                if (!Array.isArray(datos) || datos.length === 0) throw new Error("La API no devolvió registros");
 
-                const datos = await respuesta.json();
-
-                if (!Array.isArray(datos) || datos.length === 0) {
-                    throw new Error("La API no devolvió registros");
-                }
-
-                // Encabezados dinámicos según las columnas reales de la API
                 const columnas = Object.keys(datos[0]);
                 const filaEncabezado = document.createElement("tr");
                 columnas.forEach(col => {
                     const th = document.createElement("th");
-                    th.textContent = formatearEncabezado(col);
+                    th.textContent = fmtEnc(col);
                     filaEncabezado.appendChild(th);
                 });
                 thead.appendChild(filaEncabezado);
 
-                // Filas de datos
                 datos.forEach(registro => {
                     const fila = document.createElement("tr");
+                    fila.dataset.proc = registro.processor_name;
                     columnas.forEach(col => {
                         const td = document.createElement("td");
                         td.textContent = registro[col];
@@ -157,15 +213,13 @@
                 });
 
                 document.getElementById("dc-total").textContent = datos.length;
+                grupos = agrupar();
+                dibujarLinea();
 
                 estadoCarga.style.display = "none";
                 wrapper.style.display = "block";
-
             } catch (error) {
-                estadoCarga.innerHTML =
-                    '<i class="fa-solid fa-triangle-exclamation"></i> ' +
-                    'No se pudieron cargar los datos en este momento. ' +
-                    'Intenta recargar la página.';
+                estadoCarga.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> No se pudieron cargar los datos en este momento. Intenta recargar la página.';
                 console.error("Error al cargar procesadores:", error);
             }
         }

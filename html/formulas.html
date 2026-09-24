@@ -55,7 +55,7 @@
             <div class="row cuerpo-flex">
 
                 <div class="col-md-3 datos-clave">
-                <img src="../img/1.jpg" width="150" height="150" alt="QUBIT" class="img-fluid">
+                <img src="../img/qubit.svg" width="150" height="150" alt="QUBIT" class="img-fluid">
                 <h2>Datos Clave</h2>
                 <table>
                     <tr>
@@ -84,7 +84,11 @@
             </div>
 
                 <div class="col-md-9 contenido">
-                    <h1>Fórmulas</h1>
+                    <header class="hero">
+                        <img class="hero-foto" src="../img/hero-formulas.svg" width="440" height="440" alt="Esfera de Bloch con el estado de un qubit">
+                        <h1>Fórmulas</h1>
+                        <span class="hero-vertical" aria-hidden="true">Amplitudes, fases y compuertas</span>
+                    </header>
                 <p>La forma más básica de describir el estado de un qubit es mediante una combinación
                    (superposición) de sus dos estados base, <strong>|0⟩</strong> y <strong>|1⟩</strong>.
                    Esta combinación se representa con la siguiente fórmula:</p>
@@ -117,10 +121,25 @@
                     </tr>
                 </table>
 
-                <p>Una condición importante es que las probabilidades siempre deben sumar 1:
-                   |α|² + |β|² = 1.</p>
+                <h2 id="normalizacion">Normalización</h2>
+                <p>Una condición importante es que las probabilidades siempre deben sumar 1. Esto se llama
+                   <strong>condición de normalización</strong>:</p>
 
-                <p>Esa relación viene directamente de la <strong>Regla de Born</strong>, que conecta la
+                <div class="conceptos-clave">
+                    <strong>Condición de normalización</strong>
+                    <p class="formula">|α|² + |β|² = 1</p>
+                    <p class="formula">Σ |uₖ|² = 1 &nbsp; (k = 0 … N−1, con N = 2ⁿ)</p>
+                </div>
+
+                <div class="conceptos-clave">
+                    <strong>Cómo normalizar un estado</strong>
+                    <p>Si tienes a|0⟩ + b|1⟩ y no cumple la condición, divide entre su norma:</p>
+                    <p class="formula">|ψ⟩ = (a|0⟩ + b|1⟩) / √(|a|² + |b|²)</p>
+                    <p><strong>Ejemplo:</strong> 3|0⟩ + 4|1⟩ tiene norma √(9+16) = 5, así que el estado normalizado es
+                       (3/5)|0⟩ + (4/5)|1⟩, y se cumple 9/25 + 16/25 = 1.</p>
+                </div>
+
+                <p>La normalización viene directamente de la <strong>Regla de Born</strong>, que conecta la
                    "onda" cuántica con las probabilidades reales que se obtienen al medir el qubit:</p>
 
                 <div class="conceptos-clave">
@@ -150,7 +169,7 @@
 
                 <div class="conceptos-clave">
                     <strong>Estado general de n qubits</strong>
-                    <p>ψ = u₀|0⟩ + u₁|1⟩ + u₂|2⟩ + ... + u₍ₙ₋₁₎|n-1⟩</p>
+                    <p>ψ = u₀|0⟩ + u₁|1⟩ + u₂|2⟩ + ... + u<sub>N−1</sub>|N−1⟩, con N = 2ⁿ</p>
                 </div>
 
                 <table>
@@ -167,10 +186,39 @@
                         <td>Amplitudes de probabilidad (números complejos) de cada estado básico</td>
                     </tr>
                     <tr>
-                        <td>|0⟩, |1⟩, |2⟩, ...</td>
+                        <td>|0⟩, |1⟩, ..., |N−1⟩</td>
                         <td>Cada uno de los 2ⁿ estados básicos posibles del sistema</td>
                     </tr>
                 </table>
+                <h2 id="dirac">Notación de Dirac</h2>
+                <p>La notación de Dirac (bra-ket) es la forma estándar de escribir estados y operaciones cuánticas.
+                   Cada símbolo corresponde a un vector o a un número en álgebra lineal:</p>
+                <table>
+                    <tr><th>Notación</th><th>Nombre</th><th>Significado</th></tr>
+                    <tr><td>|ψ⟩</td><td>Ket</td><td>Vector columna: el estado del sistema</td></tr>
+                    <tr><td>⟨ψ|</td><td>Bra</td><td>Vector fila: el conjugado transpuesto del ket (ψ†)</td></tr>
+                    <tr><td>⟨φ|ψ⟩</td><td>Braket</td><td>Producto interno: un número complejo</td></tr>
+                    <tr><td>|ψ⟩⟨φ|</td><td>Producto externo</td><td>Un operador (matriz)</td></tr>
+                </table>
+                <div class="conceptos-clave">
+                    <strong>Los estados base como vectores</strong>
+                    <p>|0⟩ = <span class="matriz c1"><span>1</span><span>0</span></span> &nbsp; |1⟩ = <span class="matriz c1"><span>0</span><span>1</span></span></p>
+                    <p class="formula">|ψ⟩ = α|0⟩ + β|1⟩ &nbsp;&nbsp; ⟨ψ| = α*⟨0| + β*⟨1|</p>
+                    <p>El asterisco (*) indica el conjugado complejo. Con esto, la normalización se escribe así:
+                       <strong>⟨ψ|ψ⟩ = |α|² + |β|² = 1</strong>. Además, los estados base son ortonormales:
+                       ⟨0|0⟩ = ⟨1|1⟩ = 1 y ⟨0|1⟩ = 0.</p>
+                </div>
+
+                <h2 id="compuertas">Compuertas cuánticas</h2>
+                <p>Una compuerta es una matriz unitaria U que transforma el estado: |ψ'⟩ = U|ψ⟩.
+                   Estas son las más usadas, incluidas las que forman el circuito de la QFT:</p>
+                <div class="compuertas">
+                    <div class="conceptos-clave"><strong>X (NOT)</strong><p>Intercambia |0⟩ y |1⟩.</p><span class="matriz c2"><span>0</span><span>1</span><span>1</span><span>0</span></span><p>X|0⟩ = |1⟩</p></div>
+                    <div class="conceptos-clave"><strong>Z</strong><p>Cambia el signo de |1⟩ (invierte la fase).</p><span class="matriz c2"><span>1</span><span>0</span><span>0</span><span>−1</span></span><p>Z|1⟩ = −|1⟩</p></div>
+                    <div class="conceptos-clave"><strong>Hadamard (H)</strong><p>Crea superposición. Se usa al inicio de la QFT.</p><span class="formula">1/√2</span><span class="matriz c2"><span>1</span><span>1</span><span>1</span><span>−1</span></span><p>H|0⟩ = (|0⟩ + |1⟩)/√2</p></div>
+                    <div class="conceptos-clave"><strong>Fase controlada (Rₖ)</strong><p>Aplica una fase al qubit objetivo solo si el de control vale |1⟩.</p><span class="matriz c2"><span>1</span><span>0</span><span>0</span><span>e<sup>2πi/2ᵏ</sup></span></span><p>Es la otra pieza clave de la QFT.</p></div>
+                    <div class="conceptos-clave"><strong>CNOT</strong><p>Invierte el qubit objetivo si el de control vale |1⟩. Genera entrelazamiento.</p><span class="matriz c4"><span>1</span><span>0</span><span>0</span><span>0</span><span>0</span><span>1</span><span>0</span><span>0</span><span>0</span><span>0</span><span>0</span><span>1</span><span>0</span><span>0</span><span>1</span><span>0</span></span><p>CNOT|10⟩ = |11⟩</p></div>
+                </div>
                 </div>
 
             </div>
