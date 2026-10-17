@@ -1,66 +1,122 @@
-# Cuantum_Computing
+# Cuantum_Computing: Entorno Docker
 
-Pagina web educativa de introduccion a la **Computacion Cuantica**, desarrollada como
-proyecto para la Universidad EAN. Explica desde los conceptos basicos (qubit,
-superposicion, entrelazamiento) hasta la **Transformada Cuantica de Fourier (QFT)**
-y sus formulas asociadas.
+Entorno de desarrollo containerizado para la página web educativa de **Computación Cuántica** (Universidad EAN). Sigue la *Guía de Creación de Proyectos PHP empleando Docker* de la Facultad de Ingeniería.
 
-## Estructura del proyecto
+El código de la página web vive en un repositorio aparte:
+[darkavenger0528/Cuantum_Computing](https://github.com/darkavenger0528/Cuantum_Computing)
+
+---
+
+## 1. Arquitectura
+
+| Servicio     | Imagen               | Contenedor                 | Puerto host   | Función                              |
+|--------------|----------------------|----------------------------|---------------|--------------------------------------|
+| `web`        | `nginx:alpine`       | `cuantum_computing_web`    | 8080          | Servidor web, sirve `src/`           |
+| `php`        | PHP 8.4-FPM (build)  | `cuantum_computing_php`    | (interno 9000)| Procesa archivos `.php`              |
+| `db`         | `mariadb:11`         | `cuantum_computing_db`     | 127.0.0.1:3306| Base de datos                        |
+| `phpmyadmin` | `phpmyadmin/phpmyadmin` | `cuantum_computing_pma` | 8081          | Administración de la base de datos   |
+
+Todos los servicios comparten la red `proj-network` (bridge). Los datos de MariaDB persisten en el volumen `db_data`.
+
+## 2. Estructura del proyecto
 
 ```
-Cuantum_Computing/
-├── html/
-│   ├── index.html            # Introduccion
-│   ├── conceptos.html         # Conceptos Fundamentales
-│   ├── qft.html                # Transformada Cuantica de Fourier
-│   ├── comparativa.html       # Comparativa: clasico vs cuantico
-│   ├── procesadores.html      # Procesadores cuanticos (datos via API REST)
-│   ├── formulas.html          # Formulas (Regla de Born, estado de n qubits, etc.)
-│   └── contacto.html           # Formulario de contacto
-├── bootstrap/                 # Bootstrap 5.3.8 (solo css/ y js/ necesarios)
-├── fontawesome/                # Font Awesome 7 (solo css/ y webfonts/ necesarios)
-├── css/
-│   └── style.css               # Estilos propios + @media queries (responsive)
-├── fonts/                    # Fuentes propias del proyecto (si se agregan)
-├── img/                      # Imagenes del sitio
-├── mp3/                      # Audios
-├── wireframe.svg              # Wireframe (escritorio / tablet / celular)
+cuantum-computing/
+├── docker-compose.yml
+├── docker/
+│   ├── nginx/default.conf     # Configuración de Nginx
+│   └── php/Dockerfile         # Imagen PHP 8.4 + extensiones + Composer
+├── src/                       # Repo de la página web (clonado aparte)
+├── start.sh                   # Levanta el entorno
+├── stop.sh                    # Detiene el entorno
 └── README.md
 ```
 
-## Tecnologias
+## 3. Requisitos
 
-- **HTML5** - 7 paginas independientes, cada una con su propia seccion.
-- **Bootstrap 5.3.8** (carpeta `bootstrap/`, sin CDN) - usado para el
-  `navbar` responsivo con boton hamburguesa (`navbar-toggler` +
-  `bootstrap.bundle.min.js`) y el sistema de grillas (`container-fluid`, `row`,
-  `col-md-3` / `col-md-9`) que organiza la barra lateral y el contenido.
-- **Font Awesome 7** (carpeta `fontawesome/`, sin CDN) - iconos del menu
-  de navegacion, cargados desde `fontawesome/css/all.min.css`.
-- **CSS3 propio** (`css/style.css`) - colores, tipografia del tema y
-  **`@media` queries** para ajustes finos en tablet (<=900px) y celular
-  (<=600px) que complementan el comportamiento responsivo de Bootstrap.
-- **API REST (Retool API Generator)** - la pagina `procesadores.html`
-  consume, mediante `fetch()` en JavaScript puro, un dataset simulado de
-  procesadores cuanticos (`https://retoolapi.dev/pnc4c1/data`). Las columnas
-  de la tabla se generan dinamicamente a partir de las claves del JSON
-  recibido, por lo que la pagina no rompe si el dataset cambia.
+- Linux con Docker Engine y Docker Compose v2
+- Git
+- Visual Studio Code (opcional: extensión *Remote Explorer* si se trabaja por SSH/WSL/VirtualBox)
 
-## Diseno responsivo
+Verificar la instalación:
 
-- **Escritorio** (> 900px): barra lateral y contenido lado a lado (grid de
-  Bootstrap), menu horizontal completo.
-- **Tablet** (768px - 900px): se reduce el padding del contenido y del menu.
-- **Celular** (<= 768px, segun el grid de Bootstrap): la barra lateral y el
-  contenido se apilan verticalmente, y el menu se colapsa en un boton
-  hamburguesa (componente `navbar` de Bootstrap).
+```bash
+docker compose version
+docker run --rm hello-world
+```
 
-## Wireframe
+En Arch/Omarchy, si Docker no está activo:
 
-El archivo `wireframe.svg` muestra la estructura planeada de la pagina en sus
-tres versiones (escritorio, tablet y celular): menu de navegacion, barra
-lateral de "Datos Clave" y area de contenido.
+```bash
+sudo systemctl enable --now docker
+sudo usermod -aG docker $USER   # cerrar sesión y volver a entrar
+```
 
-## Autor
+## 4. Puesta en marcha
 
-Justin Thomas Moreno Solano - Universidad EAN
+```bash
+# 1. Clonar este repositorio
+git clone https://github.com/TU_USUARIO/TU_REPO_DOCKER.git cuantum-computing
+cd cuantum-computing
+
+# 2. Clonar la página web dentro de src/
+git clone https://github.com/darkavenger0528/Cuantum_Computing.git src
+
+# 3. Levantar los contenedores
+./start.sh
+```
+
+Si los scripts no son ejecutables: `chmod +x start.sh stop.sh`.
+
+| Recurso     | URL                     |
+|-------------|-------------------------|
+| Página web  | http://localhost:8080   |
+| phpMyAdmin  | http://localhost:8081   |
+
+## 5. Credenciales de desarrollo
+
+> Solo para uso local y académico. No usar en producción.
+
+| Dato           | Valor              |
+|----------------|--------------------|
+| Host (interno) | `db`               |
+| Base de datos  | `mi_base_datos`    |
+| Usuario        | `estudiante`       |
+| Contraseña     | `estudiante_pass`  |
+| Root           | `root_password`    |
+
+## 6. Flujo de trabajo
+
+1. `cd ~/cuantum-computing`
+2. `./start.sh`
+3. `code .` y editar los archivos dentro de `src/`
+4. Recargar el navegador en http://localhost:8080 (los cambios se ven al instante gracias al volumen montado)
+5. Al terminar: `./stop.sh`
+
+## 7. Comandos útiles
+
+```bash
+docker compose ps                  # Estado de los contenedores
+docker compose logs -f web         # Logs en vivo de Nginx
+docker compose exec php bash       # Terminal dentro del contenedor PHP
+docker compose down -v             # Detener y BORRAR la base de datos
+docker system df                   # Espacio usado por Docker
+docker system prune -a             # Liberar espacio (elimina imágenes sin uso)
+```
+
+## 8. Solución de problemas
+
+| Problema | Causa probable | Solución |
+|----------|----------------|----------|
+| `permission denied` al usar docker | Usuario fuera del grupo `docker` | `sudo usermod -aG docker $USER` y reiniciar sesión |
+| `port is already allocated` | Puerto 8080, 8081 o 3306 ocupado | Cambiar el puerto en `docker-compose.yml` |
+| La web redirige a GitHub Pages | `index.html` tiene una redirección absoluta | Ajustar la redirección para que solo aplique en producción |
+| Error de conexión a la BD | MariaDB aún está iniciando | Esperar unos segundos y recargar |
+| `src/` vacío | No se clonó la página web | `git clone <repo-web> src` |
+
+## 9. Créditos
+
+Guía base elaborada por Ing. Leonardo Escobar Archila MSc, Facultad de Ingeniería, Universidad EAN.
+
+## Entorno Docker
+Ver [docs/README-docker.md](docs/README-docker.md)
